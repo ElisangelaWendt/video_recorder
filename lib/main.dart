@@ -55,7 +55,7 @@ class Home extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Galeria()),
+                  MaterialPageRoute(builder: (context) => CameraPage()),
                 );
               },
             ),
