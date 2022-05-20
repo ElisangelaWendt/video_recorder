@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SegundaRota extends StatelessWidget {
+class Galeria extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -8,7 +8,7 @@ class SegundaRota extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.black,
         centerTitle: true,
-        title: Text('Video Recorder'),
+        title: Text('Galeria'),
       ),
       body: Center(
         child: RaisedButton(

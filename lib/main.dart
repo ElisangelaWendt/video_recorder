@@ -3,7 +3,7 @@ import './galeria.dart';
 
 void main() {
   runApp(MaterialApp(
-    title: 'Video Recorder',
+    title: 'Navegação Básica',
     theme: ThemeData(primarySwatch: Colors.blue),
     home: Home(),
   ));
@@ -19,16 +19,45 @@ class Home extends StatelessWidget {
         title: Text('Video Recorder'),
       ),
       backgroundColor: Colors.black,
-      body: Center(
-        child: RaisedButton(
-          color: Colors.cyan[800],
-          child: Text('Galeria'),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => SegundaRota()),
-            );
-          },
+      body: Align(
+        child: Column(
+          children: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.cyan[800],
+              ),
+              child: Text(
+                'Galeria',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Galeria()),
+                );
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                alignment: Alignment(0.0, 1.0),
+                backgroundColor: Colors.cyan[800],
+              ),
+              child: Text(
+                '+',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Galeria()),
+                );
+              },
+            ),
+          ],
         ),
       ),
     );
