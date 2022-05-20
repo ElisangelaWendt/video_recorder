@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:video_recorder/camera_page.dart';
 import './galeria.dart';
 
 void main() {
