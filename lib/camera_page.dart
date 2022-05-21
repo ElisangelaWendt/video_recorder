@@ -1,6 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:video_recorder/video_page.dart';
+import 'dart:async';
 
 class CameraPage extends StatefulWidget {
   const CameraPage({Key? key}) : super(key: key);
@@ -28,7 +29,8 @@ class _CameraPageState extends State<CameraPage> {
 
   _initCamera() async {
     final cameras = await availableCameras();
-    final front = cameras.firstWhere((camera) => camera.lensDirection == CameraLensDirection.front);
+    final front = cameras.firstWhere(
+        (camera) => camera.lensDirection == CameraLensDirection.front);
     _cameraController = CameraController(front, ResolutionPreset.max);
     await _cameraController.initialize();
     setState(() => _isLoading = false);
@@ -47,6 +49,10 @@ class _CameraPageState extends State<CameraPage> {
       await _cameraController.prepareForVideoRecording();
       await _cameraController.startVideoRecording();
       setState(() => _isRecording = true);
+      Timer(const Duration(seconds: 10), () {
+        setState(() => _isRecording = true);
+        _recordVideo();
+      });
     }
   }
 
