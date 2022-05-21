@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:video_recorder/camera_page.dart';
 import './galeria.dart';
 
 void main() {
@@ -52,7 +53,7 @@ Widget incluiStack(BuildContext context) {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => Galeria()),
+              MaterialPageRoute(builder: (context) => CameraPage()),
             );
           },
         ),

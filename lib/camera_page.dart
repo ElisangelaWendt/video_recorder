@@ -60,28 +60,34 @@ class _CameraPageState extends State<CameraPage> {
   Widget build(BuildContext context) {
     if (_isLoading) {
       return Container(
-        color: Colors.white,
+        color: Colors.black,
         child: const Center(
           child: CircularProgressIndicator(),
         ),
       );
     } else {
-      return Center(
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            CameraPreview(_cameraController),
-            Padding(
-              padding: const EdgeInsets.all(25),
-              child: FloatingActionButton(
-                backgroundColor: Colors.red,
-                child: Icon(_isRecording ? Icons.stop : Icons.circle),
-                onPressed: () => _recordVideo(),
-              ),
+      return Scaffold(
+          appBar: AppBar(
+              backgroundColor: Colors.black,
+              centerTitle: true,
+              title: Text('Video Recorder')),
+          backgroundColor: Colors.black,
+          body: Center(
+            child: Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                CameraPreview(_cameraController),
+                Padding(
+                  padding: const EdgeInsets.all(25),
+                  child: FloatingActionButton(
+                    backgroundColor: Colors.red,
+                    child: Icon(_isRecording ? Icons.stop : Icons.circle),
+                    onPressed: () => _recordVideo(),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      );
+          ));
     }
   }
 }
