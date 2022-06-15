@@ -1,7 +1,11 @@
 import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+import 'package:video_recorder/api/firebase_api.dart';
+import 'package:video_recorder/galeria.dart';
+import 'package:path/path.dart';
 
 class VideoPage extends StatefulWidget {
   final String filePath;
@@ -14,6 +18,8 @@ class VideoPage extends StatefulWidget {
 
 class _VideoPageState extends State<VideoPage> {
   late VideoPlayerController _videoPlayerController;
+
+  UploadTask? task;
 
   @override
   void dispose() {
@@ -28,6 +34,26 @@ class _VideoPageState extends State<VideoPage> {
     await _videoPlayerController.play();
   }
 
+  Future uploadFile() async {
+    if (widget.filePath == "") return;
+
+    final fileName = basename(File(widget.filePath).path);
+    final destination = 'files/$fileName';
+
+    task = FirebaseApi.uploadFile(destination, File(widget.filePath));
+
+    if (task == null) return;
+
+    final snapshot = await task!.whenComplete(() {});
+    final urlDonwload = await snapshot.ref.getDownloadURL();
+
+    final route = MaterialPageRoute(
+      fullscreenDialog: true,
+      builder: (_) => Galeria(),
+    );
+    Navigator.push(this.context, route);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +65,7 @@ class _VideoPageState extends State<VideoPage> {
           IconButton(
             icon: const Icon(Icons.check),
             onPressed: () {
-              print('do something with the file');
+              uploadFile();
             },
           )
         ],

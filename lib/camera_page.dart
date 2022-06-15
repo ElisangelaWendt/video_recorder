@@ -50,7 +50,6 @@ class _CameraPageState extends State<CameraPage> {
       await _cameraController.startVideoRecording();
       setState(() => _isRecording = true);
       Timer(const Duration(seconds: 10), () {
-        setState(() => _isRecording = true);
         _recordVideo();
       });
     }

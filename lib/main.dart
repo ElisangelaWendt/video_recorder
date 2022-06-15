@@ -7,7 +7,7 @@ import './galeria.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // await Firebase.initializeApp(); //lembrar de descomentar
+  await Firebase.initializeApp();
 
   runApp(MaterialApp(
     title: 'Video recorder',
