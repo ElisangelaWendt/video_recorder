@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:video_recorder/camera_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:video_recorder/theme.dart';
-import './galeria.dart';
+import 'package:video_recorder/HomeGaleria.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp();
+  // await Firebase.initializeApp();
 
   runApp(MaterialApp(
     title: 'Video recorder',
@@ -45,7 +45,7 @@ Widget buttons(BuildContext context) {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Galeria()),
+                MaterialPageRoute(builder: (context) => HomeGaleria()),
               );
             },
           ),

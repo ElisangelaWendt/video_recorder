@@ -1,43 +1,78 @@
+import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
+import 'package:video_recorder/like_icon.dart';
+import 'package:video_recorder/option_screen.dart';
+import 'package:video_player/video_player.dart';
 
-class Galeria extends StatelessWidget {
+class Galeria extends StatefulWidget {
+  final String? src;
+
+  const Galeria({Key? key, this.src}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(centerTitle: true, title: Text('Galeria')),
-      body: lista(context),
-    );
-  }
+  _GaleriaState createState() => _GaleriaState();
 }
 
-Widget lista(BuildContext context) {
-  return MaterialApp(
-    home: Scaffold(
-      backgroundColor: Colors.black,
-      body: GridView.count(
-        // Create a grid with 2 columns. If you change the scrollDirection to
-        // horizontal, this produces 2 rows.
-        crossAxisCount: 2,
-        // Generate 100 widgets that display their index in the List.
-        children: List.generate(10, (index) {
-          //alterar para quantidade de videos contidas no BD
-          return Center(
-            child: Card(
-              child: InkWell(
-                splashColor: Colors.blue.withAlpha(30),
-                onTap: () {
-                  debugPrint('Card tapped.');
+class _GaleriaState extends State<Galeria> {
+  late VideoPlayerController _videoPlayerController;
+  ChewieController? _chewieController;
+  bool _liked = false;
+  @override
+  void initState() {
+    super.initState();
+    initializePlayer();
+  }
+
+  Future initializePlayer() async {
+    _videoPlayerController = VideoPlayerController.network(widget.src!);
+    await Future.wait([_videoPlayerController.initialize()]);
+    _chewieController = ChewieController(
+      videoPlayerController: _videoPlayerController,
+      autoPlay: true,
+      showControls: false,
+      looping: true,
+    );
+    setState(() {});
+  }
+
+  @override
+  void dispose() {
+    _videoPlayerController.dispose();
+    _chewieController!.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        _chewieController != null &&
+                _chewieController!.videoPlayerController.value.isInitialized
+            ? GestureDetector(
+                onDoubleTap: () {
+                  setState(() {
+                    _liked = !_liked;
+                  });
                 },
-                child: const SizedBox(
-                  width: 200,
-                  height: 200,
-                  child: Text('video'),
+                child: Chewie(
+                  controller: _chewieController!,
                 ),
+              )
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(),
+                  SizedBox(height: 10),
+                  Text('Loading...')
+                ],
               ),
-            ),
-          );
-        }),
-      ),
-    ),
-  );
+        if (_liked)
+          Center(
+            child: LikeIcon(),
+          ),
+        OptionsScreen()
+      ],
+    );
+  }
 }
