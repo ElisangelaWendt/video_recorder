@@ -44,9 +44,6 @@ class _VideoPageState extends State<VideoPage> {
 
     if (task == null) return;
 
-    final snapshot = await task!.whenComplete(() {});
-    final urlDonwload = await snapshot.ref.getDownloadURL();
-
     final route = MaterialPageRoute(
       fullscreenDialog: true,
       builder: (_) => Galeria(),

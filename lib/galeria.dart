@@ -4,9 +4,9 @@ import 'package:video_recorder/like_icon.dart';
 import 'package:video_recorder/option_screen.dart';
 import 'package:video_player/video_player.dart';
 
+
 class Galeria extends StatefulWidget {
   final String? src;
-
   const Galeria({Key? key, this.src}) : super(key: key);
 
   @override

@@ -1,18 +1,40 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:video_recorder/galeria.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
-class HomeGaleria extends StatelessWidget {
-  
-  final List<String> videos = [
-    'https://assets.mixkit.co/videos/preview/mixkit-taking-photos-from-different-angles-of-a-model-34421-large.mp4',
-    'https://assets.mixkit.co/videos/preview/mixkit-young-mother-with-her-little-daughter-decorating-a-christmas-tree-39745-large.mp4',
-    'https://assets.mixkit.co/videos/preview/mixkit-mother-with-her-little-daughter-eating-a-marshmallow-in-nature-39764-large.mp4',
-    'https://assets.mixkit.co/videos/preview/mixkit-girl-in-neon-sign-1232-large.mp4',
-    'https://assets.mixkit.co/videos/preview/mixkit-winter-fashion-cold-looking-woman-concept-video-39874-large.mp4',
-    'https://assets.mixkit.co/videos/preview/mixkit-womans-feet-splashing-in-the-pool-1261-large.mp4',
-    'https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4'
-  ];
+class HomeGaleria extends StatefulWidget {
+  @override
+  _HomeGaleriaState createState() => _HomeGaleriaState();
+}
+
+class _HomeGaleriaState extends State<HomeGaleria> {
+
+  List<String> videos = [];
+  @override
+  void initState() {
+    super.initState();
+    listFiles();
+  }
+
+  Future listFiles() async {
+    firebase_storage.ListResult results =
+        await firebase_storage.FirebaseStorage.instance.ref('files').listAll();
+    results.items.forEach((firebase_storage.Reference ref) {
+      print('Found file $ref');
+      donwloadUrl(ref.name);
+    });
+  }
+
+  Future donwloadUrl(String imgName) async {
+    String donwloadUrl = await firebase_storage.FirebaseStorage.instance
+        .ref('files/$imgName')
+        .getDownloadURL();
+
+    videos.add(donwloadUrl);
+    print(videos);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
