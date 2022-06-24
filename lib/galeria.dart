@@ -1,9 +1,6 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
-import 'package:video_recorder/like_icon.dart';
-import 'package:video_recorder/option_screen.dart';
 import 'package:video_player/video_player.dart';
-
 
 class Galeria extends StatefulWidget {
   final String? src;
@@ -16,7 +13,6 @@ class Galeria extends StatefulWidget {
 class _GaleriaState extends State<Galeria> {
   late VideoPlayerController _videoPlayerController;
   ChewieController? _chewieController;
-  bool _liked = false;
   @override
   void initState() {
     super.initState();
@@ -50,11 +46,6 @@ class _GaleriaState extends State<Galeria> {
         _chewieController != null &&
                 _chewieController!.videoPlayerController.value.isInitialized
             ? GestureDetector(
-                onDoubleTap: () {
-                  setState(() {
-                    _liked = !_liked;
-                  });
-                },
                 child: Chewie(
                   controller: _chewieController!,
                 ),
@@ -67,11 +58,6 @@ class _GaleriaState extends State<Galeria> {
                   Text('Loading...')
                 ],
               ),
-        if (_liked)
-          Center(
-            child: LikeIcon(),
-          ),
-        OptionsScreen()
       ],
     );
   }

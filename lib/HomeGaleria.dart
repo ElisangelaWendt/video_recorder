@@ -1,6 +1,9 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
+import 'package:video_recorder/camera_page.dart';
 import 'package:video_recorder/galeria.dart';
+// import 'package:share/share.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class HomeGaleria extends StatefulWidget {
@@ -9,7 +12,6 @@ class HomeGaleria extends StatefulWidget {
 }
 
 class _HomeGaleriaState extends State<HomeGaleria> {
-
   List<String> videos = [];
   @override
   void initState() {
@@ -58,14 +60,25 @@ class _HomeGaleriaState extends State<HomeGaleria> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      'Flutter Shorts',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600,
-                      ),
+                    RaisedButton(
+                      color: Colors.white,
+                      shape: CircleBorder(),
+                      child: Icon(Icons.camera_alt),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => CameraPage()),
+                        );
+                      },
                     ),
-                    Icon(Icons.camera_alt),
+                    RaisedButton(
+                      color: Colors.white,
+                      shape: CircleBorder(),
+                      child: Icon(Icons.send),
+                      onPressed: () {
+                        Share.share("Compartilhar");
+                      },
+                    ),
                   ],
                 ),
               ),
