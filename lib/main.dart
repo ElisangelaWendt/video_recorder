@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:video_recorder/Lista.dart';
 import 'package:video_recorder/camera_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:video_recorder/theme.dart';
@@ -7,7 +8,7 @@ import 'package:video_recorder/HomeGaleria.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp();
+  // await Firebase.initializeApp();
 
   runApp(MaterialApp(
     title: 'Video recorder',
@@ -46,6 +47,26 @@ Widget buttons(BuildContext context) {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => HomeGaleria()),
+              );
+            },
+          ),
+        ),
+      ),
+      Positioned(
+        top: 120.0,
+        child: SizedBox(
+          height: 60,
+          width: 160,
+          child: RaisedButton(
+            color: Colors.cyan[800],
+            shape: RoundedRectangleBorder(
+              borderRadius: new BorderRadius.circular(5.0),
+            ),
+            child: const Text('Lista de vídeos', textScaleFactor: 1.5),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Lista()),
               );
             },
           ),
